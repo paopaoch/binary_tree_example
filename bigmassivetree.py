@@ -133,22 +133,6 @@ class BinaryTree:
 
         return depth
 
-    def min_depth(self, root):
-        # perform DFS and keep track of a count?
-        def postorder(node, depth):
-            nonlocal result
-            if not node:
-                if depth < result or result == 0:
-                    result = depth
-                return
-
-            postorder(node.left, depth + 1)
-            postorder(node.right, depth + 1)
-
-        result = 0
-        postorder(root, 1)
-        return result
-
 
 if __name__ == '__main__':
     #         1
@@ -176,7 +160,6 @@ if __name__ == '__main__':
     print(tree.print_traversal("postorder"))
     print(tree.print_traversal("postorder stack"))
     print(tree.print_traversal("leaves"))
-    print(tree.min_depth(tree.root))
     tree.invert()
     print(tree.print_traversal("preorder"))
     print(tree.depth())
