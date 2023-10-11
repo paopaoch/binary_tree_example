@@ -1,3 +1,6 @@
+import collections
+
+
 class Node:
     def __init__(self, value) -> None:
         self.value = value
@@ -110,6 +113,36 @@ class BinaryTree:
             node.left = right
             node.right = left
         return node
+    
+    def invert_tree_stack(self, root):
+        if not root:
+            return None
+        
+        queue = collections.deque([root])
+        while queue:
+            current = queue.popleft()
+            current.left, current.right = current.right, current.left
+            
+            if current.left:
+                queue.append(current.left)
+            
+            if current.right:
+                queue.append(current.right)
+        
+        return root
+    
+    def bfs(self, root):
+        queue = [root]
+        values = []
+        while len(queue) > 0:
+            node = queue.pop(0)
+            values.append(node.value)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        return values
+
 
     # print all leaves
     def leaves(self, node, traversal):
@@ -160,6 +193,7 @@ if __name__ == '__main__':
     print(tree.print_traversal("postorder"))
     print(tree.print_traversal("postorder stack"))
     print(tree.print_traversal("leaves"))
+    print(tree.bfs(tree.root))
     tree.invert()
     print(tree.print_traversal("preorder"))
     print(tree.depth())
